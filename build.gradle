@@ -1,0 +1,67 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+import proguard.gradle.ProGuardTask
+
+version = project.plugin_version
+
+apply plugin: 'java'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'spigotmc-repo'
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+    }
+    maven {
+        name = 'sonatype'
+        url = 'https://oss.sonatype.org/content/groups/public/'
+    }
+}
+
+dependencies {
+    implementation 'org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT'
+}
+
+processResources {
+    outputs.upToDateWhen { false }
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    from(sourceSets.main.resources) {
+        filter ReplaceTokens, tokens: [version: project.plugin_version, name: project.plugin_name,
+                                       group: project.plugin_group, website: project.plugin_website,
+                                       author: project.plugin_author]
+    }
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.guardsquare:proguard-gradle:7.1.0'
+    }
+}
+
+def proguardOutFile = rootProject.file("$buildDir/libs/release.jar")
+def jarFile = jar.outputs.files.singleFile
+task proguard(type: ProGuardTask) {
+    configuration 'configuration.pro'
+
+    injars jarFile
+    outjars proguardOutFile
+    libraryjars configurations.findByName('runtimeClasspath').getFiles()
+    // Java 8
+    libraryjars "${System.getProperty("java.home")}/lib/rt.jar"
+    // Java 9+ compatibility
+    libraryjars "${System.getProperty("java.home")}/jmods/java.base.jmod"
+    libraryjars "${System.getProperty("java.home")}/jmods/java.desktop.jmod"
+    libraryjars "${System.getProperty("java.home")}/jmods/java.logging.jmod"
+    libraryjars "${System.getProperty("java.home")}/jmods/jdk.unsupported.jmod"
+}
+
+jar.finalizedBy proguard
+proguard.doLast {
+    if (!jarFile.delete()) throw new IllegalStateException()
+    if (!proguardOutFile.renameTo(jarFile)) throw new IllegalStateException()
+}

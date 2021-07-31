@@ -1,0 +1,8 @@
+name: @name@
+version: @version@
+main: @group@.@name@
+load: STARTUP
+api-version: 1.13
+loadbefore: [ Multiverse-Core, Multiworld ]
+author: @author@
+website: @website@
