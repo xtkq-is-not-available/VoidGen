@@ -1,9 +1,18 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 import proguard.gradle.ProGuardTask
 
-version = project.plugin_version
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.guardsquare:proguard-gradle:7.1.0'
+    }
+}
 
 apply plugin: 'java'
+
+version = project.plugin_version
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
@@ -34,14 +43,10 @@ processResources {
     }
 }
 
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.guardsquare:proguard-gradle:7.1.0'
-    }
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
 }
+
 
 def proguardOutFile = rootProject.file("$buildDir/libs/release.jar")
 def jarFile = jar.outputs.files.singleFile
