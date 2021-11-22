@@ -5,10 +5,11 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.generator.ChunkGenerator;
+import org.bukkit.generator.WorldInfo;
 
 import java.util.Random;
 
-abstract class ChunkGen extends ChunkGenerator {
+public abstract class ChunkGen extends ChunkGenerator {
 
     protected ChunkGenSettings chunkGenSettings;
 
@@ -38,8 +39,18 @@ abstract class ChunkGen extends ChunkGenerator {
     }
 
     @Override
-    public boolean isParallelCapable() {
-        return true;
+    public boolean shouldGenerateNoise() {
+        return this.chunkGenSettings.isNoise();
+    }
+
+    @Override
+    public boolean shouldGenerateSurface() {
+        return this.chunkGenSettings.isSurface();
+    }
+
+    @Override
+    public boolean shouldGenerateBedrock() {
+        return this.chunkGenSettings.isBedrock();
     }
 
     protected void placeBedrock(ChunkData paramChunkData, int paramChunkX, int paramChunkZ) {
@@ -53,16 +64,14 @@ abstract class ChunkGen extends ChunkGenerator {
         }
     }
 
-    protected void placeBedrock(byte[][] result, int paramChunkX, int paramChunkZ) {
+    @Override
+    public void generateBedrock(WorldInfo worldInfo, Random random, int chunkX, int chunkZ, ChunkData chunkData) {
         // Bedrock block position
-        int x = 0, y = 64, z = 0;
+        final int x = 0, y = 64, z = 0;
 
-        if ((x >= paramChunkX * 16) && (x < (paramChunkX + 1) * 16)) {
-            if ((z >= paramChunkZ * 16) && (z < (paramChunkZ + 1) * 16)) {
-                if (result[y >> 4] == null) {
-                    result[y >> 4] = new byte[4096];
-                }
-                result[y >> 4][(0) | x] = (byte) 7;
+        if ((x >= chunkX * 16) && (x < (chunkX + 1) * 16)) {
+            if ((z >= chunkZ * 16) && (z < (chunkZ + 1) * 16)) {
+                chunkData.setBlock(x, y, z, Material.BEDROCK);
             }
         }
     }

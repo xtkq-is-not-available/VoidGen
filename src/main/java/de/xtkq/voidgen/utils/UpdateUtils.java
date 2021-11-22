@@ -1,4 +1,4 @@
-package de.xtkq.voidgen.update;
+package de.xtkq.voidgen.utils;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.logging.Level;
 
-public class Checker {
+public class UpdateUtils {
     private static final String API_URL = "https://api.spigotmc.org/legacy/update.php?resource=%d";
     private static final String RESOURCE_URL = "https://www.spigotmc.org/resources/%s/";
     private final static int PLUGIN_ID = 25391;
@@ -17,7 +17,7 @@ public class Checker {
     private static String latestVersion;
     private final JavaPlugin plugin;
 
-    public Checker(JavaPlugin paramPlugin) {
+    public UpdateUtils(JavaPlugin paramPlugin) {
         this.plugin = paramPlugin;
         latestVersion = paramPlugin.getDescription().getVersion();
     }

@@ -4,10 +4,10 @@ import de.xtkq.voidgen.generator.annotations.VoidChunkGenInfo;
 import de.xtkq.voidgen.events.EventManager;
 import de.xtkq.voidgen.generator.instances.VoidChunkGen_1_15;
 import de.xtkq.voidgen.generator.instances.VoidChunkGen_1_17;
-import de.xtkq.voidgen.generator.instances.VoidChunkGen_1_7;
+import de.xtkq.voidgen.generator.instances.VoidChunkGen_1_17_1;
 import de.xtkq.voidgen.generator.instances.VoidChunkGen_1_8_8;
 import de.xtkq.voidgen.settings.SettingsManager;
-import de.xtkq.voidgen.update.Checker;
+import de.xtkq.voidgen.utils.UpdateUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,7 +17,7 @@ import java.util.Arrays;
 public final class VoidGen extends JavaPlugin {
 
     private static VoidGen voidGen;
-    private VoidGenType voidGenType;
+    private ChunkGenVersion chunkGenVersion;
     private EventManager eventManager;
 
     public static VoidGen getVoidGen() {
@@ -26,15 +26,15 @@ public final class VoidGen extends JavaPlugin {
 
     @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
-        switch (this.voidGenType) {
-            case v1_7:
-                return new VoidChunkGen_1_7(id);
-            case v1_8_8:
+        switch (this.chunkGenVersion) {
+            case VERSION_1_8:
                 return new VoidChunkGen_1_8_8(id);
-            case v1_15:
+            case VERSION_1_15:
                 return new VoidChunkGen_1_15(id);
-            case v1_17:
+            case VERSION_1_17:
                 return new VoidChunkGen_1_17(id);
+            case VERSION_1_17_1:
+                return new VoidChunkGen_1_17_1(id);
             default:
                 this.getLogger().severe("Ain't nobody got time for that!");
                 return new VoidChunkGen_1_17(id);
@@ -44,15 +44,15 @@ public final class VoidGen extends JavaPlugin {
     @Override
     public void onEnable() {
         voidGen = this;
-        this.voidGenType = this.setupVoidChunkGen();
-        this.getLogger().info("Using VoidChunkGen: " + this.voidGenType.name());
+        this.chunkGenVersion = this.setupVoidChunkGen();
+        this.getLogger().info("Using VoidChunkGen: " + this.chunkGenVersion.name());
 
         SettingsManager settingsManager = new SettingsManager(this);
-        Checker checker = new Checker(this);
+        UpdateUtils updateUtils = new UpdateUtils(this);
         this.eventManager = new EventManager(this);
 
         if (settingsManager.getConfiguration().getCheckForUpdates()) {
-            checker.checkForUpdates();
+            updateUtils.checkForUpdates();
             this.eventManager.initialize();
         }
     }
@@ -64,29 +64,30 @@ public final class VoidGen extends JavaPlugin {
         voidGen = null;
     }
 
-    private VoidGenType setupVoidChunkGen() {
+    private ChunkGenVersion setupVoidChunkGen() {
         VoidChunkGenInfo annotation;
         String bukkitVersion = Bukkit.getBukkitVersion().split("-")[0];
 
-        annotation = VoidChunkGen_1_7.class.getAnnotation(VoidChunkGenInfo.class);
-        if (Arrays.asList(annotation.versions()).contains(bukkitVersion)) {
-            return VoidGenType.v1_7;
-        }
-
         annotation = VoidChunkGen_1_8_8.class.getAnnotation(VoidChunkGenInfo.class);
         if (Arrays.asList(annotation.versions()).contains(bukkitVersion)) {
-            return VoidGenType.v1_8_8;
+            return ChunkGenVersion.VERSION_1_8;
         }
 
         annotation = VoidChunkGen_1_15.class.getAnnotation(VoidChunkGenInfo.class);
         if (Arrays.asList(annotation.versions()).contains(bukkitVersion)) {
-            return VoidGenType.v1_15;
+            return ChunkGenVersion.VERSION_1_15;
         }
 
         annotation = VoidChunkGen_1_17.class.getAnnotation(VoidChunkGenInfo.class);
         if (Arrays.asList(annotation.versions()).contains(bukkitVersion)) {
-            return VoidGenType.v1_17;
+            return ChunkGenVersion.VERSION_1_17;
         }
-        return VoidGenType.v1_17;
+
+        annotation = VoidChunkGen_1_17_1.class.getAnnotation(VoidChunkGenInfo.class);
+        if (Arrays.asList(annotation.versions()).contains(bukkitVersion)) {
+            return ChunkGenVersion.VERSION_1_17_1;
+        }
+
+        return ChunkGenVersion.VERSION_UNKNOWN;
     }
 }

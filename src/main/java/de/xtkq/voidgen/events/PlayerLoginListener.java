@@ -1,6 +1,6 @@
 package de.xtkq.voidgen.events;
 
-import de.xtkq.voidgen.update.Checker;
+import de.xtkq.voidgen.utils.UpdateUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,7 +21,7 @@ public class PlayerLoginListener implements Listener {
     @EventHandler(priority = EventPriority.LOW)
     public void onPlayerLogin(PlayerLoginEvent event) {
         Player player = event.getPlayer();
-        if (Checker.isUpdateAvailable()) {
+        if (UpdateUtils.isUpdateAvailable()) {
             if (player.isOp()) {
                 this.plugin.getServer().getScheduler().runTaskLater(this.plugin, () -> player.sendMessage(this.getUpdateMessage()), 60L);
             }
@@ -29,7 +29,7 @@ public class PlayerLoginListener implements Listener {
     }
 
     private String getUpdateMessage() {
-        String updateMessage = String.format("&e%s &7v.%s &ris available here: &e%s&r", this.plugin.getName(), Checker.getLatestVersion(), Checker.getResourceURL());
+        String updateMessage = String.format("&e%s &7v.%s &ris available here: &e%s&r", this.plugin.getName(), UpdateUtils.getLatestVersion(), UpdateUtils.getResourceURL());
         return ChatColor.translateAlternateColorCodes('&', updateMessage);
     }
 

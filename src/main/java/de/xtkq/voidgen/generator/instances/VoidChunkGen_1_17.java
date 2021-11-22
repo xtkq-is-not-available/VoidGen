@@ -12,7 +12,7 @@ import org.bukkit.World;
 import java.util.Objects;
 import java.util.Random;
 
-@VoidChunkGenInfo(versions = {"1.17", "1.17.1"})
+@VoidChunkGenInfo(versions = {"1.17"})
 public class VoidChunkGen_1_17 extends ChunkGen3DExtended {
 
     public VoidChunkGen_1_17(String paramIdentifier) {
@@ -34,13 +34,14 @@ public class VoidChunkGen_1_17 extends ChunkGen3DExtended {
     }
 
     @Override
-    public ChunkData generateChunkData(World world, Random random, int ChunkX, int ChunkZ, BiomeGrid paramBiomeGrid) {
+    public ChunkData generateChunkData(World world, Random random, int chunkX, int chunkZ, BiomeGrid paramBiomeGrid) {
         ChunkData chunkData = this.createChunkData(world);
         if (Objects.nonNull(this.chunkGenSettings.getBiome())) {
             this.setBiomeGrid(paramBiomeGrid, chunkData);
         }
 
-        this.placeBedrock(chunkData, ChunkX, ChunkZ);
+        super.generateBedrock(null, random, chunkX, chunkZ, chunkData);
+//        this.placeBedrock(chunkData, ChunkX, ChunkZ);
         return chunkData;
     }
 }

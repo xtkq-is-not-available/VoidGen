@@ -35,13 +35,14 @@ public class VoidChunkGen_1_8_8 extends ChunkGen2D {
     }
 
     @Override
-    public ChunkData generateChunkData(World world, Random random, int ChunkX, int ChunkZ, BiomeGrid paramBiomeGrid) {
+    public ChunkData generateChunkData(World world, Random random, int chunkX, int chunkZ, BiomeGrid paramBiomeGrid) {
         ChunkData chunkData = this.createChunkData(world);
         if (Objects.nonNull(this.chunkGenSettings.getBiome())) {
             this.setBiomeGrid(paramBiomeGrid, chunkData);
         }
 
-        this.placeBedrock(chunkData, ChunkX, ChunkZ);
+        super.generateBedrock(null, random, chunkX, chunkZ, chunkData);
+//        this.placeBedrock(chunkData, chunkX, chunkZ);
         return chunkData;
     }
 }
