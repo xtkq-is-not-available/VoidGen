@@ -1,4 +1,3 @@
-import org.apache.tools.ant.filters.ReplaceTokens
 import proguard.gradle.ProGuardTask
 
 buildscript {
@@ -10,9 +9,28 @@ buildscript {
     }
 }
 
-apply plugin: 'java'
+plugins {
+    id 'java'
+}
 
-version = project.plugin_version
+group = project.plugin_group as Object
+version = project.plugin_version as Object
+
+def targetJavaVersion = 8
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release = targetJavaVersion
+    }
+}
 
 repositories {
     mavenCentral()
@@ -28,21 +46,18 @@ repositories {
 
 dependencies {
 //    implementation 'org.spigotmc:spigot-api:1.17.1-R0.1-SNAPSHOT'
-    implementation group: 'org.spigotmc', name: 'spigot-api', version: '1.17.1-R0.1-SNAPSHOT'
+    implementation group: 'org.spigotmc', name: 'spigot-api', version: '1.18.1-R0.1-SNAPSHOT'
 }
 
 processResources {
-    outputs.upToDateWhen { false }
-    duplicatesStrategy = DuplicatesStrategy.INCLUDE
-    from(sourceSets.main.resources) {
-        filter ReplaceTokens, tokens: [version: project.plugin_version, name: project.plugin_name,
-                                       group: project.plugin_group, website: project.plugin_website,
-                                       author: project.plugin_author]
+    def properties = [version: project.plugin_version, name: project.plugin_name,
+                      group  : project.plugin_group, website: project.plugin_website,
+                      author : project.plugin_author]
+    inputs.properties properties
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand properties
     }
-}
-
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
 }
 
 def proguardOutFile = rootProject.file("$buildDir/libs/release.jar")

@@ -11,10 +11,11 @@ import org.bukkit.block.Biome;
 import org.bukkit.generator.BiomeProvider;
 import org.bukkit.generator.WorldInfo;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-@VoidChunkGenInfo(versions = {"1.17.1", "1.18"})
+@VoidChunkGenInfo(versions = {"1.17.1", "1.18", "1.18.1"})
 public class VoidChunkGen_1_17_1 extends ChunkGen {
 
     public VoidChunkGen_1_17_1(String paramIdentifier) {
@@ -58,7 +59,7 @@ public class VoidChunkGen_1_17_1 extends ChunkGen {
 
         @Override
         public List<Biome> getBiomes(WorldInfo worldInfo) {
-            return List.of(this.biome);
+            return Collections.singletonList(this.biome);
         }
     }
 }

@@ -33,11 +33,8 @@ public final class VoidGen extends JavaPlugin {
                 return new VoidChunkGen_1_15(id);
             case VERSION_1_17:
                 return new VoidChunkGen_1_17(id);
-            case VERSION_1_17_1:
-                return new VoidChunkGen_1_17_1(id);
             default:
-                this.getLogger().severe("Ain't nobody got time for that!");
-                return new VoidChunkGen_1_17(id);
+                return new VoidChunkGen_1_17_1(id);
         }
     }
 

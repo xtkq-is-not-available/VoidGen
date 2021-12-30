@@ -1,8 +1,8 @@
-name: @name@
-version: @version@
-main: @group@.@name@
-load: STARTUP
+name: '${name}'
+version: '${version}'
+main: '${group}.${name}'
 api-version: 1.13
+load: STARTUP
 loadbefore: [ Multiverse-Core, Multiworld ]
-author: @author@
-website: @website@
+author: '${author}'
+website: '${website}'
