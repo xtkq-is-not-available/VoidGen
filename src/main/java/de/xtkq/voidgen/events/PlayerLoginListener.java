@@ -29,7 +29,7 @@ public class PlayerLoginListener implements Listener {
     }
 
     private String getUpdateMessage() {
-        String updateMessage = String.format("&e%s &7v.%s &ris available here: &e%s&r", this.plugin.getName(), UpdateUtils.getLatestVersion(), UpdateUtils.getResourceURL());
+        String updateMessage = String.format("&e%s &7v.%s is available here: &e%s&r", this.plugin.getName(), UpdateUtils.getLatestRelease(), UpdateUtils.getLatestReleaseURL());
         return ChatColor.translateAlternateColorCodes('&', updateMessage);
     }
 
