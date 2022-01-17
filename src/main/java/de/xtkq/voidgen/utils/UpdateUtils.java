@@ -2,15 +2,12 @@ package de.xtkq.voidgen.utils;
 
 import com.google.gson.Gson;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.util.StringUtil;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Map;
-import java.util.Objects;
-import java.util.logging.Level;
 
 public class UpdateUtils {
     private static final String GITHUB_API = "https://api.github.com/repos/xtkq-is-not-available/VoidGen/releases/latest";
