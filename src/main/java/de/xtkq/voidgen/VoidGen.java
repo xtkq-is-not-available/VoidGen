@@ -1,12 +1,12 @@
 package de.xtkq.voidgen;
 
-import de.xtkq.voidgen.generator.annotations.VoidChunkGenInfo;
 import de.xtkq.voidgen.events.EventManager;
+import de.xtkq.voidgen.generator.annotations.VoidChunkGenInfo;
 import de.xtkq.voidgen.generator.instances.VoidChunkGen_1_15;
 import de.xtkq.voidgen.generator.instances.VoidChunkGen_1_17;
 import de.xtkq.voidgen.generator.instances.VoidChunkGen_1_17_1;
 import de.xtkq.voidgen.generator.instances.VoidChunkGen_1_8_8;
-import de.xtkq.voidgen.settings.SettingsManager;
+import de.xtkq.voidgen.settings.ConfigManager;
 import de.xtkq.voidgen.utils.UpdateUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.generator.ChunkGenerator;
@@ -16,39 +16,33 @@ import java.util.Arrays;
 
 public final class VoidGen extends JavaPlugin {
 
-    private static VoidGen voidGen;
     private ChunkGenVersion chunkGenVersion;
     private EventManager eventManager;
-
-    public static VoidGen getVoidGen() {
-        return voidGen;
-    }
 
     @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
         switch (this.chunkGenVersion) {
             case VERSION_1_8:
-                return new VoidChunkGen_1_8_8(id);
+                return new VoidChunkGen_1_8_8(this, id);
             case VERSION_1_15:
-                return new VoidChunkGen_1_15(id);
+                return new VoidChunkGen_1_15(this, id);
             case VERSION_1_17:
-                return new VoidChunkGen_1_17(id);
+                return new VoidChunkGen_1_17(this, id);
             default:
-                return new VoidChunkGen_1_17_1(id);
+                return new VoidChunkGen_1_17_1(this, id);
         }
     }
 
     @Override
     public void onEnable() {
-        voidGen = this;
         this.chunkGenVersion = this.setupVoidChunkGen();
         this.getLogger().info("Using VoidChunkGen: " + this.chunkGenVersion.name());
 
-        SettingsManager settingsManager = new SettingsManager(this);
+        ConfigManager configManager = new ConfigManager(this);
         UpdateUtils updateUtils = new UpdateUtils(this);
         this.eventManager = new EventManager(this);
 
-        if (settingsManager.getConfiguration().getCheckForUpdates()) {
+        if (configManager.getConfiguration().getCheckForUpdates()) {
             updateUtils.checkForUpdates();
             this.eventManager.initialize();
         }
@@ -58,7 +52,6 @@ public final class VoidGen extends JavaPlugin {
     public void onDisable() {
         this.getServer().getScheduler().cancelTasks(this);
         this.eventManager.terminate();
-        voidGen = null;
     }
 
     private ChunkGenVersion setupVoidChunkGen() {

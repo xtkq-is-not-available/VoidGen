@@ -10,7 +10,7 @@ import java.net.URL;
 import java.util.Map;
 
 public class UpdateUtils {
-    private static final String GITHUB_API = "https://api.github.com/repos/xtkq-is-not-available/VoidGen/releases/latest";
+    private static final String GITHUB_API = "https://api.github.com/repos/xtkq-is-not-available/%s/releases/latest";
     private static boolean updateAvailable = false;
     private static String latestRelease;
     private static String latestReleaseURL;
@@ -24,21 +24,25 @@ public class UpdateUtils {
     public static boolean isUpdateAvailable() {
         return updateAvailable;
     }
+
     public static String getLatestRelease() {
         return latestRelease;
     }
 
-    public static String getLatestReleaseURL() {return latestReleaseURL;}
+    public static String getLatestReleaseURL() {
+        return latestReleaseURL;
+    }
 
     public void checkForUpdates() {
         this.plugin.getServer().getScheduler().runTaskTimerAsynchronously(this.plugin, () -> {
             Gson gson = new Gson();
             try {
-                URL url = new URL(GITHUB_API);
+                URL url = new URL(String.format(GITHUB_API, this.plugin.getName()));
                 HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
                 httpsURLConnection.setRequestMethod("GET");
                 httpsURLConnection.setRequestProperty("accept", "application/vnd.github.v3+json");
-                if(httpsURLConnection.getResponseCode() == HttpsURLConnection.HTTP_OK){
+
+                if (httpsURLConnection.getResponseCode() == HttpsURLConnection.HTTP_OK) {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpsURLConnection.getInputStream()));
                     Map<?, ?> map = gson.fromJson(bufferedReader.readLine(), Map.class);
                     bufferedReader.close();
@@ -46,12 +50,13 @@ public class UpdateUtils {
                     if (isUpdateAvailable(this.plugin.getDescription().getVersion(), ((String) map.get("name")).substring(1))) {
                         updateAvailable = true;
                         latestRelease = ((String) map.get("name")).substring(1);
-                        latestReleaseURL = (String) map.get("htl_url");
+                        latestReleaseURL = (String) map.get("html_url");
                         this.plugin.getLogger().info("Update v" + latestRelease + " is available: " + latestReleaseURL);
                     }
                 }
-            } catch (Exception ignored){}
-        // Start 2min after server start and repeat every 3h
+            } catch (Exception ignored) {
+            }
+            // Start 2min after server start and repeat every 3h
         }, 2400L, 216000L);
     }
 

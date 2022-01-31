@@ -9,13 +9,13 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SettingsManager {
+public class ConfigManager {
 
     private final Logger LOGGER;
     private final File CONFIGURATION_FILE;
     private Configuration configuration;
 
-    public SettingsManager(JavaPlugin paramPlugin) {
+    public ConfigManager(JavaPlugin paramPlugin) {
         this.LOGGER = paramPlugin.getLogger();
         this.CONFIGURATION_FILE = new File(paramPlugin.getDataFolder(), "configuration.json");
         this.CONFIGURATION_FILE.getParentFile().mkdirs();

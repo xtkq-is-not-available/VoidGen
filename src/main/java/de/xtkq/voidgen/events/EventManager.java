@@ -4,15 +4,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class EventManager {
 
-    private final JavaPlugin plugin;
+    private final JavaPlugin javaPlugin;
     private PlayerLoginListener playerLogin;
 
     public EventManager(JavaPlugin paramPlugin) {
-        this.plugin = paramPlugin;
+        this.javaPlugin = paramPlugin;
     }
 
     public void initialize() {
-        this.playerLogin = new PlayerLoginListener(this.plugin);
+        this.playerLogin = new PlayerLoginListener(this.javaPlugin);
     }
 
     public void terminate() {

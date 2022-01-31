@@ -8,6 +8,7 @@ import de.xtkq.voidgen.generator.interfaces.ChunkGen3D;
 import de.xtkq.voidgen.generator.settings.ChunkGenSettings;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.World;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
 import java.util.Random;
@@ -15,22 +16,23 @@ import java.util.Random;
 @VoidChunkGenInfo(versions = {"1.15", "1.15.1", "1.15.2", "1.16.1", "1.16.2", "1.16.3", "1.16.4", "1.16.5"})
 public class VoidChunkGen_1_15 extends ChunkGen3D {
 
-    public VoidChunkGen_1_15(String paramIdentifier) {
+    public VoidChunkGen_1_15(JavaPlugin paramPlugin, String paramIdentifier) {
+        super(paramPlugin);
         Gson gson = new Gson();
 
         if (StringUtils.isBlank(paramIdentifier)) {
             this.chunkGenSettings = new ChunkGenSettings();
-            VoidGen.getVoidGen().getLogger().info("Generator settings have not been set. Using default values:");
+            this.javaPlugin.getLogger().info("Generator settings have not been set. Using default values:");
         } else {
             try {
                 this.chunkGenSettings = gson.fromJson(paramIdentifier, ChunkGenSettings.class);
             } catch (JsonSyntaxException jse) {
                 this.chunkGenSettings = new ChunkGenSettings();
-                VoidGen.getVoidGen().getLogger().info("Generator settings \"" + paramIdentifier + "\" syntax is not valid. Using default values:");
+                this.javaPlugin.getLogger().info("Generator settings \"" + paramIdentifier + "\" syntax is not valid. Using default values:");
             }
         }
         // Posting the currently used chunkGenSettings to console.
-        VoidGen.getVoidGen().getLogger().info(gson.toJson(chunkGenSettings));
+        this.javaPlugin.getLogger().info(gson.toJson(chunkGenSettings));
     }
 
     @Override

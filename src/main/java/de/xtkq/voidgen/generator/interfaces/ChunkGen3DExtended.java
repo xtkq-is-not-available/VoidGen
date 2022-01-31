@@ -1,8 +1,13 @@
 package de.xtkq.voidgen.generator.interfaces;
 
 import org.bukkit.generator.ChunkGenerator;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public abstract class ChunkGen3DExtended extends ChunkGen implements IChunkGenBiomeGrid {
+
+    public ChunkGen3DExtended(JavaPlugin paramPlugin) {
+        super(paramPlugin);
+    }
 
     @Override
     public void setBiomeGrid(ChunkGenerator.BiomeGrid paramBiomeGrid, ChunkGenerator.ChunkData paramChunkData) {
