@@ -4,7 +4,7 @@
     <a href="https://discord.gg/Q7yj32FMFh"><img src="https://discordapp.com/api/guilds/681986370214166548/widget.png?style=shield"></a>   
     <a href="https://github.com/xtkq-is-not-available/VoidGen/releases/latest"><img src="https://img.shields.io/github/v/release/xtkq-is-not-available/VoidGen?label=release&color=success"></a>
     <a href="https://github.com/xtkq-is-not-available/VoidGen/releases/latest"><img alt="GitHub all releases" src="https://img.shields.io/github/downloads/xtkq-is-not-available/VoidGen/total"></a>    
-    <a href="https://github.com/Wynntils/Wynntils/blob/development/LICENSE"><img src="https://img.shields.io/github/license/xtkq-is-not-available/VoidGen?label=license&color=success"></a>
+    <a href="https://github.com/xtkq-is-not-available/VoidGen/blob/master/LICENSE.md"><img src="https://img.shields.io/github/license/xtkq-is-not-available/VoidGen?label=license&color=success"></a>
 </p>
 
 # VoidGen
