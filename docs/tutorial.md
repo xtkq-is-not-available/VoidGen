@@ -1,20 +1,18 @@
 # Tutorial Section
 
-## Content
-
 - Step 0 - [Where to put the plugin?](#Where to put the plugin?)
 - Step 1 - [Setup of the bukkit.yml file](#Setup of the bukkit.yml file)
 - Step 2 - [World management](#World management)
 - Step 3 - [Restart](#Restart)
 - [Parameters](#Parameters)
 
-### Where to put the plugin?
+## Where to put the plugin?
 
 If your server is currently running, Stop it. <br>
 Download the [latest plugin release](https://github.com/xtkq-is-not-available/VoidGen/releases/latest) and drop it in the plugin directory. Afterwards start your server back up. The plugin will automatically detect which ChunkGeneration version to use, generate the tiny configuration file and post some infos in your server's console. <br>
 To check if the plugin loaded successfully either run the command `/plugins` ingame or from the console and see if the plugin's name is listed green.
 
-### Setup of the bukkit.yml file
+## Setup of the bukkit.yml file
 
 Setting up the `bukkit.yml` file is highly recommended, even tho it is only strictly needed for the default worlds. <br>
 Open up the `bukkit.yml` file from your server directory and go to the end of the file. At the end of the file the following snippet needs to be added for all the worlds we want the plugin to handle generation. Here we add the worlds we want the plugin to generate. Just replace the placeholders *worldname_1* and *worldname_2* with the actual world names. The list can be extended for however many world you want to use:
@@ -33,16 +31,16 @@ It is also possible to modify the basic generator with additional [parameters](#
       worldname_4:
         generator: VoidGen{decoration:true, structures:true, mobs:true, biome:END_BARRENS}
 
-### World management
+## World management
 
 Coming soon...
 
-### Restart
+## Restart
 
 Restart your server for all the changes to take effect. If you configured everything correctly, the generator will work in all newly created chunks. <br>
 If you find any bug, have crashed because of the plugin or are still experiencing issues, please report it at my [official Discord server](https://discord.gg/Q7yj32FMFh).
 
-## Parameters
+# Parameters
 
 | Parameter    | Definition                                                                                                                                                                                                                                                                                                                                                                                                                 | Values                                                                                                 | Syntax                                                            |
 |--------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|
