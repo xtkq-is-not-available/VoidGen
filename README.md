@@ -25,4 +25,5 @@ Find answers to frequently asked questions on the [FAQ page](docs/faq.md).
 ## License
 
 VoidGen is licensed under
-the [GNU General Public License v3.0](https://github.com/xtkq-is-not-available/VoidGen/blob/master/LICENSE.md).
+the [GNU General Public License v3.0](https://github.com/xtkq-is-not-available/VoidGen/blob/master/LICENSE.md). 
+
