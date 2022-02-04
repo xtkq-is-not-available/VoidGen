@@ -1,8 +1,8 @@
 # Tutorial Section
 
-- Step 0 - [Where to put the plugin?](#Where to put the plugin?)
-- Step 1 - [Setup of the bukkit.yml file](#Setup of the bukkit.yml file)
-- Step 2 - [World management](#World management)
+- Step 0 - [Where to put the plugin?](#Where-to-put-the-plugin?)
+- Step 1 - [Setup of the bukkit.yml file](#Setup-of-the-bukkit.yml-file)
+- Step 2 - [World management](#World-management)
 - Step 3 - [Restart](#Restart)
 - [Parameters](#Parameters)
 
