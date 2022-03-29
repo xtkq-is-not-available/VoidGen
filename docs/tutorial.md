@@ -29,7 +29,7 @@ It is also possible to modify the basic generator with additional [parameters](#
       worldname_3:
         generator: VoidGen:{biome:CRIMSON_FOREST}
       worldname_4:
-        generator: VoidGen{decoration:true, structures:true, mobs:true, biome:END_BARRENS}
+        generator: VoidGen:{decoration:true, structures:true, mobs:true, biome:END_BARRENS}
 
 ## World management
 
