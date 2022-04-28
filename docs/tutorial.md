@@ -1,10 +1,10 @@
 # Tutorial Section
 
-- Step 0 - [Where to put the plugin?](#Where-to-put-the-plugin?)
-- Step 1 - [Setup of the bukkit.yml file](#Setup-of-the-bukkit.yml-file)
-- Step 2 - [World management](#World-management)
-- Step 3 - [Restart](#Restart)
-- [Parameters](#Parameters)
+- Step 0 - [Where to put the plugin?](#where-to-put-the-plugin)
+- Step 1 - [Setup of the bukkit.yml file](#setup-of-the-bukkityml-file)
+- Step 2 - [World management](#world-management)
+- Step 3 - [Restart](#restart)
+- [Parameters](#parameters)
 
 ## Where to put the plugin?
 
@@ -23,7 +23,7 @@ Open up the `bukkit.yml` file from your server directory and go to the end of th
       worldname_2:
         generator: VoidGen
 
-It is also possible to modify the basic generator with additional [parameters](#Parameters). You can use any amount of parameters you want to set in any order. Note that specifying the default value of a parameter is the same as not specifying it at all. Chaining multiple parameters together can be done with *commas* as can be seen in the examples:
+It is also possible to modify the basic generator with additional [parameters](#parameters). You can use any amount of parameters you want to set in any order. Note that specifying the default value of a parameter is the same as not specifying it at all. Chaining multiple parameters together can be done with *commas* as can be seen in the examples:
 
     worlds:
       worldname_3:
