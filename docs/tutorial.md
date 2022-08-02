@@ -33,7 +33,32 @@ It is also possible to modify the basic generator with additional [parameters](#
 
 ## World management
 
-Coming soon...
+If you are using VoidGen for your default world and are not using any worldmanagement plugins like [Mutliverse](https://dev.bukkit.org/projects/multiverse-core), you are done here. Reload your server and the plugin should function as intended.<br>
+In case you are running a world management plugin like Multiverse this is important for you. If you are not using Multiverse use the corresponding commands from your plugin of choice.<br>
+You have three different choices, **Create** a world, **Import** a world and/or use the **default world**.<br>
+
+**Create:** Use the following command, when creating a new World:<br>
+
+    /mv create <worldname> <env> -g VoidGen:<parameters> -t FLAT
+    
+   • **\<worldname>** - This is the name of the world you want the plugin to work in.<br>
+   • **\<env>** - represents the environment of the world, use `/mv env` to see a list of all possible environments. Most common ones are `NORMAL` and `NETHER`.<br>
+   • **\<parameters>** - see [STEP 1](#Setup-of-the-bukkit.yml-file) for an explainantion.<br>
+   • **Void darkness** start at around Y=64, if you want them to start at Y=0, set the `level-type` in the `server.properties` file to `FLAT`.<br>
+        
+         level-type=FLAT
+    
+**Import:** Use the following command, when creating a new World:
+    
+    /mv import <worldname> <env> -g VoidGen:<parameters> -t FLAT
+    
+   • \<worldname> represents the name of the world you want to generate.<br>
+   • **\<env>** - represents the environment of the world, use `/mv env` to see a list of all possible environments. Most common ones are `NORMAL` and `NETHER`.<br>
+   • **\<parameters>** - see [STEP 1](#Setup-of-the-bukkit.yml-file) for an explainantion.<br>
+    
+**Default world:** We already specified the generator in the `bukkit.yml` file. But we also need to change the generator in our multiverse world file to:
+        
+        generator: VoidGen:<parameters>
 
 ## Restart
 
