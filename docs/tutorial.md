@@ -14,7 +14,7 @@ To check if the plugin loaded successfully either run the command `/plugins` ing
 
 ## Setup of the bukkit.yml file
 
-Setting up the `bukkit.yml` file is highly recommended, even tho it is only strictly needed for the default worlds. <br>
+Setting up the `bukkit.yml` file is highly recommended, even though it is only strictly needed for the default worlds. <br>
 Open up the `bukkit.yml` file from your server directory and go to the end of the file. At the end of the file the following snippet needs to be added for all the worlds we want the plugin to handle generation. Here we add the worlds we want the plugin to generate. Just replace the placeholders *worldname_1* and *worldname_2* with the actual world names. The list can be extended for however many world you want to use:
 
     worlds:
@@ -33,7 +33,38 @@ It is also possible to modify the basic generator with additional [parameters](#
 
 ## World management
 
-Coming soon...
+If you are using VoidGen for your default world and are not using any world management plugins like Mutliverse, you are done here. Reload your server and the plugin should function as intended.
+In case you are running a world management plugin like [Multiverse](https://dev.bukkit.org/projects/multiverse-core) this is important for you. If you are not using Multiverse use the corresponding commands from your plugin of choice.
+You have three different choices, **Create** a world, **Import** a world and/or use the **default world**.
+ 
+ 
+**Create:** Use the following command, when creating a new world:
+
+`/mv create <worldname> <env> -g VoidGen:<parameters> -t FLAT`
+
+| Parameter     | Definition                                                                                                                                   |
+|---------------|----------------------------------------------------------------------------------------------------------------------------------------------|  
+|`<worldname>`  | This is the name of the world you want the plugin to work in.                                                                                |
+|`<env>`        | Represents the environment of the world, use `/mv env` to see a list of all possible environments. Most common ones are `NORMAL` and `NETHER`|
+|`<parameters>` | See [parameters](#Parameters) for an explainantion.                                                                                          |                                                                                          |
+
+**Void darkness:** Start at around `Y=64`, if you want them to start at `Y=0`, set the `level-type` in the `server.properties` file to `FLAT`.                             
+
+`level-type=FLAT`
+    
+**Import:** Use the following command, when creating a new world:
+
+`/mv import <worldname> <env> -g VoidGen:<parameters> -t FLAT`
+
+| Parameter     | Definition                                                                                                                                   |
+|---------------|----------------------------------------------------------------------------------------------------------------------------------------------|  
+|`<worldname>`  | This is the name of the world you want the plugin to work in.                                                                                |
+|`<env>`        | Represents the environment of the world, use `/mv env` to see a list of all possible environments. Most common ones are `NORMAL` and `NETHER`|
+|`<parameters>` | See [parameters](#Parameters) for an explainantion.                                                                                          |     
+ 
+**Default world:** We already specified the generator in the bukkit.yml file. But we also need to change the generator in our multiverse world file to:
+
+`generator: VoidGen:<parameters>`
 
 ## Restart
 
@@ -50,6 +81,6 @@ If you find any bug, have crashed because of the plugin or are still experiencin
 | `structures` | Controls vanilla structure generation. <br> Not setting this parameter is the same as setting it to false. Some structures need the `decoration` parameter to be set to true as well to generate correctly (e.g. strongholds). <br> If you set the biome parameter, only structures that are able to naturally generate in the specified biome can generate (e.g. ocean monuments can not generate in an all PLAINS world) | `true` / `false`                                                                                       | `{structures:true}` <br><br> `{structures:true, decoration:true}` |
 | `decoration` | Controls the creation of vanilla chunk decorations. <br> Not setting this parameter is the same as setting it to false. Mostly used in combination with the `structures` parameter.                                                                                                                                                                                                                                        | `true` / `false`                                                                                       | `{decoration:true}` <br><br> `{structures:true, decoration:true}` |
 | `noise`      | Controls the creation of blocks from noise. Think vanilla stone, basically everything between bedrock and the surface. <br> Not setting this parameter is the same as setting it to false.                                                                                                                                                                                                                                 | `true` / `false`                                                                                       | `{noise:true}`                                                    |
-| `surface`    | Controls the creation of surface blocks. Think vanilla gras blocks. <br> Not setting this parameter is the same as setting it to false. The surface can only generate if blocks are present. The easiest methode of doing so is enabling the `noise` parameter.                                                                                                                                                            | `true` / `false`                                                                                       | `{noise:true}` <br><br> `{noise:true, noise:true}`                |
+| `surface`    | Controls the creation of surface blocks. Think vanilla grass blocks. <br> Not setting this parameter is the same as setting it to false. The surface can only generate if blocks are present. The easiest method of doing so is enabling the `noise` parameter.                                                                                                                                                            | `true` / `false`                                                                                       | `{noise:true}` <br><br> `{noise:true, noise:true}`                |
 | `bedrock`    | Controls the creation of the vanilla bedrock layer at the bottom of the world. <br> Not setting this parameter is the same as setting it to false.                                                                                                                                                                                                                                                                         | `true` / `false`                                                                                       | `{bedrock:true}`                                                  |
 
